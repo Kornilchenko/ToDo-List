@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level  %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Print log in file -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log_file.log</file>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover ежедневній перенос -->
+            <fileNamePattern>file_log.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- Храним файлы логов 10 дней -->
+            <maxHistory>10</maxHistory>
+
+            <!-- Максимальный размер файлов лога 10Mb -->
+            <totalSizeCap>10MB</totalSizeCap>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%thread] %-5level  %logger{20} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <root level="info">
+        <appender-ref  ref="FILE" />
+    </root>
+
+    <root level="info">
+        <appender-ref  ref="STDOUT" />
+    </root>
+
+</configuration>
